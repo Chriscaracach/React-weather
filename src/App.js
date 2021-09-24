@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import "./App.css";
 import Input from "./components/input";
-import Display from "./components/display";
+import Display from "./components/display/display";
 import Logo from "./components/logo";
 
 const Button = styled.button`
