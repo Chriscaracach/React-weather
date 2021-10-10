@@ -4,6 +4,7 @@ import "./App.css";
 import Input from "./components/input";
 import Display from "./components/display/display";
 import Logo from "./components/logo";
+import Loader from "./components/loader";
 
 const Button = styled.button`
   margin-top: 2%;
@@ -17,19 +18,19 @@ const Button = styled.button`
 `;
 
 function App() {
-  const [Weather, setWeather] = useState([]);
+  const [Weather, setWeather] = useState({});
   const [Cities, setCities] = useState([]);
+  const [CitySelect, setCitySelect] = useState("");
 
   //COLORES
   //364F6B (oscuro)
   //3FC1C9 (verde)
   //F5F5F5 (light)
   //FC5185 (rojo)
-  useEffect(() => {
-    // "https://api.weatherapi.com/v1/current.json?key=9735ec656b7a47948b0134437212109&q=London&aqi=no"
 
+  useEffect(() => {
     fetch(
-      "http://api.weatherapi.com/v1/search.json?key=9735ec656b7a47948b0134437212109&q=Argentina"
+      "https://api.weatherapi.com/v1/search.json?key=9735ec656b7a47948b0134437212109&q=Argentina"
     )
       .then((result) => result.json())
       .then((result) => {
@@ -38,15 +39,46 @@ function App() {
       .catch((err) => {
         return err;
       });
+    // return () => {};
   }, []);
 
+  const handleCitySelect = (e) => {
+    let fil = Cities.filter((item) => {
+      return item.name === e.target.value;
+    });
+    setCitySelect(fil[0].url);
+  };
+
+  const searchCity = () => {
+    fetch(
+      "https://api.weatherapi.com/v1/current.json?key=9735ec656b7a47948b0134437212109&q=" +
+        CitySelect +
+        "&aqi=no&lang=es"
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setWeather(res);
+      })
+      .catch((err) => {
+        return err;
+      });
+  };
   return (
     <div className="App">
-      {/* <Logo></Logo>
-      <Input cities={Cities}></Input>
-      <Button>Buscar</Button> */}
-      <Display></Display>
-      {/* {Weather ? <Display></Display> : null} */}
+      <Logo></Logo>
+      <Input cities={Cities} handleCitySelect={handleCitySelect}></Input>
+      <Button
+        onClick={() => {
+          searchCity();
+        }}
+      >
+        Buscar
+      </Button>
+      {Object.keys(Weather).length !== 0 ? (
+        <Display data={Weather}></Display>
+      ) : null}
     </div>
   );
 }

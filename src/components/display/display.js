@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import styled from "styled-components";
 import DisplayBody from "./displaybody";
@@ -42,15 +42,30 @@ const GridAside1 = styled(GridCard)`
 const GridAside2 = styled(GridCard)`
   padding: 10px;
 `;
-const Display = ({ data }) => {
+const Display = (data) => {
+  useEffect(() => {
+    console.log(data.data.current);
+  }, []);
+
+  const datos = data.data;
+
   return (
     <div>
       <Grid>
         <GridHeader1>
-          <DisplayHeader></DisplayHeader>
+          <DisplayHeader
+            city={datos.location.name}
+            country={datos.location.country}
+            region={datos.location.region}
+          ></DisplayHeader>
         </GridHeader1>
         <GridBody>
-          <p>hola</p>
+          <DisplayBody
+            img={datos.current.condition.icon}
+            condition={datos.current.condition.text}
+            temp={datos.current.temp_c}
+            feelslike={datos.current.feelslike_c}
+          ></DisplayBody>
         </GridBody>
         <GridHeader2>
           <p>gsdvas</p>
