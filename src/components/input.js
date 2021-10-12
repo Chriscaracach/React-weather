@@ -14,18 +14,24 @@ const Select = styled.select`
   height: 40px;
 `;
 const Label = styled.label`
-  margin-top: 5%;
+  margin-top: 3%;
 `;
 
-const Input = ({ cities, handleCitySelect }) => {
+const Input = ({ cities, handleCitySelect, citySelect }) => {
+  let map = cities.map((item, i) => {
+    return <option key={i}>{item.name}</option>;
+  });
+
   return (
     <div>
       <ContainerCenter>
         <Label htmlFor="ciudades">Seleccioná una ciudad</Label>
-        <Select id="ciudades" onChange={handleCitySelect}>
-          {cities.map((item, i) => {
-            return <option key={i}>{item.name}</option>;
-          })}
+        <Select
+          id="ciudades"
+          onChange={handleCitySelect}
+          defaultValue={citySelect}
+        >
+          {map}
         </Select>
       </ContainerCenter>
     </div>

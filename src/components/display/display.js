@@ -3,6 +3,9 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import DisplayBody from "./displaybody";
 import DisplayHeader from "./displayHeader";
+import DisplayHeader2 from "./displayHeader2";
+import DisplayAside1 from "./displayAside1";
+import DisplayAside2 from "./displayAside2";
 
 const Grid = styled.div`
   background-color: #eaebe0;
@@ -42,12 +45,12 @@ const GridAside1 = styled(GridCard)`
 const GridAside2 = styled(GridCard)`
   padding: 10px;
 `;
-const Display = (data) => {
+const Display = ({ data, searchCity }) => {
   useEffect(() => {
-    console.log(data.data.current);
+    console.log(data.current);
   }, []);
 
-  const datos = data.data;
+  const datos = data;
 
   return (
     <div>
@@ -57,6 +60,7 @@ const Display = (data) => {
             city={datos.location.name}
             country={datos.location.country}
             region={datos.location.region}
+            date={datos.location.localtime}
           ></DisplayHeader>
         </GridHeader1>
         <GridBody>
@@ -68,13 +72,22 @@ const Display = (data) => {
           ></DisplayBody>
         </GridBody>
         <GridHeader2>
-          <p>gsdvas</p>
+          <DisplayHeader2
+            direccionViento={datos.current.wind_dir}
+            velocidadViento={datos.current.wind_kph}
+            visibilidad={datos.current.vis_km}
+          ></DisplayHeader2>
         </GridHeader2>
         <GridAside1>
-          <p>vbadbasc</p>
+          <DisplayAside1
+            humedad={datos.current.humidity}
+            nubosidad={datos.current.cloud}
+          ></DisplayAside1>
         </GridAside1>
         <GridAside2>
-          <p>badvasc</p>
+          <DisplayAside2
+            precipitaciones={datos.current.precip_mm}
+          ></DisplayAside2>
         </GridAside2>
       </Grid>
     </div>

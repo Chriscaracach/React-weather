@@ -68,7 +68,11 @@ function App() {
   return (
     <div className="App">
       <Logo></Logo>
-      <Input cities={Cities} handleCitySelect={handleCitySelect}></Input>
+      <Input
+        cities={Cities}
+        handleCitySelect={handleCitySelect}
+        citySelect={CitySelect}
+      ></Input>
       <Button
         onClick={() => {
           searchCity();
@@ -77,7 +81,7 @@ function App() {
         Buscar
       </Button>
       {Object.keys(Weather).length !== 0 ? (
-        <Display data={Weather}></Display>
+        <Display data={Weather} searchCity={searchCity}></Display>
       ) : null}
     </div>
   );

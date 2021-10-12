@@ -7,6 +7,9 @@ const Flex = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const Title = styled.h1`
+  font-size: 2rem;
+`;
 const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -14,7 +17,7 @@ const FlexRow = styled.div`
   justify-content: center;
 `;
 const Icon = styled.img`
-  width: 25%;
+  width: 40%;
 `;
 
 const Displaybody = ({ img, condition, temp, feelslike }) => {
@@ -22,16 +25,14 @@ const Displaybody = ({ img, condition, temp, feelslike }) => {
     <>
       <Flex>
         <Icon src={img}></Icon>
-        <h1>{condition}</h1>
+        <Title>{condition}</Title>
         <FlexRow>
-          <Flex>
-            <h1>{temp}°</h1>
-            <p>Temperatura</p>
-          </Flex>
-          <Flex>
-            <h1>{feelslike}° ST</h1>
-            <p>Sensación térmica</p>
-          </Flex>
+          <p>Temperatura : </p>
+          <h1>{temp}°</h1>
+        </FlexRow>
+        <FlexRow>
+          <p>Sensación térmica : </p>
+          <h1>{feelslike}°</h1>
         </FlexRow>
       </Flex>
     </>
